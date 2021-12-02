@@ -21,11 +21,15 @@ namespace BookStoreApp.Core.Entity
         // It's much cheaper than .ToList() because it will not have to copy all items in a new collection. (Just one heap alloc for the wrapper instance)
         //https://msdn.microsoft.com/en-us/library/e78dcd75(v=vs.110).aspx 
 
+        private readonly List<Comment> _comments = new();
+        public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
 
-        private Author(Guid id, string firstName, string lastName, string aboutAuthor, string picture, List<Book> books) 
+
+        private Author(Guid id, string firstName, string lastName, string aboutAuthor, string picture, List<Book> books, List<Comment> comments) 
             : this(id, firstName, lastName,aboutAuthor,picture)
         {
             _books = books;
+            _comments = comments;
         }
 
         private Author() // For EF
@@ -52,6 +56,19 @@ namespace BookStoreApp.Core.Entity
             foreach (var book in books)
             {
                 AddBook(book);
+            }
+        }
+
+        public void AddAuthorComment(Comment comment)
+        {
+            _comments.Add(comment);
+        }
+
+        public void AddAuthorComments(IEnumerable<Comment> comments)
+        {
+            foreach (var comment in comments)
+            {
+                AddAuthorComment(comment);
             }
         }
 
