@@ -58,6 +58,10 @@ namespace BookStoreApp.Infrastructure.Migrations
                     b.Property<Guid?>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Category");
+
                     b.Property<string>("CoverPicture")
                         .HasColumnType("nvarchar(max)");
 
@@ -109,22 +113,6 @@ namespace BookStoreApp.Infrastructure.Migrations
                         .WithMany("Books")
                         .HasForeignKey("AuthorId");
 
-                    b.OwnsOne("BookStoreApp.Core.ValueObjects.Category", "Category", b1 =>
-                        {
-                            b1.Property<Guid>("BookId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Name")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.HasKey("BookId");
-
-                            b1.ToTable("Books");
-
-                            b1.WithOwner()
-                                .HasForeignKey("BookId");
-                        });
-
                     b.OwnsOne("BookStoreApp.Core.ValueObjects.PublicationDate", "PublicationDate", b1 =>
                         {
                             b1.Property<Guid>("BookId")
@@ -142,8 +130,6 @@ namespace BookStoreApp.Infrastructure.Migrations
                         });
 
                     b.Navigation("Author");
-
-                    b.Navigation("Category");
 
                     b.Navigation("PublicationDate");
                 });

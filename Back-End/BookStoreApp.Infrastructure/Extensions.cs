@@ -14,9 +14,6 @@ namespace BookStoreApp.Infrastructure
                     options.UseSqlServer(
                         configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
-            //string connectionString = configuration.GetConnectionString("DefaultConnection");
-            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
-
             services.AddScoped<IAppDbContext>(provider => provider.GetService<AppDbContext>());
 
             return services;

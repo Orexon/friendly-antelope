@@ -12,7 +12,7 @@ namespace BookStoreApp.Core.Entity
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string AboutAuthor { get; private set; }
-        public string Picture { get; private set; }//Change to appropriateData type byte[]/string/File etc..
+        public string Picture { get; private set; } //Change to appropriateData type byte[]/string/File etc..
 
         private readonly List<Book> _books = new();
         public IReadOnlyCollection<Book> Books => _books.AsReadOnly();
@@ -25,8 +25,8 @@ namespace BookStoreApp.Core.Entity
         public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
 
 
-        private Author(Guid id, string firstName, string lastName, string aboutAuthor, string picture, List<Book> books, List<Comment> comments) 
-            : this(id, firstName, lastName,aboutAuthor,picture)
+        private Author(string firstName, string lastName, string aboutAuthor, string picture, List<Book> books, List<Comment> comments) 
+            : this(firstName, lastName,aboutAuthor,picture)
         {
             _books = books;
             _comments = comments;
@@ -36,14 +36,26 @@ namespace BookStoreApp.Core.Entity
         {
         }
 
-        public Author(Guid id, string firstName, string lastName, string aboutAuthor, string picture)
+        public Author(string firstName, string lastName, string aboutAuthor, string picture)
         {
             //Guards or exceptions.
-            Id = id;
             FirstName = firstName;
             LastName = lastName;
             AboutAuthor = aboutAuthor;
             Picture = picture;
+        }
+
+        public void AddBook(Book book)
+        {
+            _books.Add(book);
+        }
+
+        public void AddBooks(IEnumerable<Book> books)
+        {
+            foreach (var book in books)
+            {
+                AddBook(book);
+            }
         }
 
         public void AddAuthorComment(Comment comment)
@@ -72,6 +84,5 @@ namespace BookStoreApp.Core.Entity
             //Guards or Exceptions
             Picture = newPicture;
         }
-
     }
 }

@@ -15,8 +15,6 @@ namespace BookStoreApp.Infrastructure.Data.Config
         {
             builder.HasKey(x => x.Id);
 
-            builder.HasMany(x=>x.Books);
-
             builder.HasMany(c => c.Books)
                    .WithOne(n => n.Author);
 

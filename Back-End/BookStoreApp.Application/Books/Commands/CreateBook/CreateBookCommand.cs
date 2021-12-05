@@ -13,9 +13,8 @@ namespace BookStoreApp.Application.Books.Commands
 {
     public class CreateBookCommand : IRequest<Guid>
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
-        public Author Author { get; set; }
+        public Guid AuthorId { get; set; }
         public Category Category { get; set; }
         public string Language { get; set; }
         public string About { get; set; }
@@ -34,10 +33,16 @@ namespace BookStoreApp.Application.Books.Commands
 
         public async Task<Guid> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            Book book = new(request.Id, request.Name,request.Author, request.Category, request.About, request.Language, request.PublicationDate, request.CoverPicture);
+            Author author = _context.Authors.Where(x=>x.Id == request.AuthorId).FirstOrDefault();
+            //Throw exception if not found.
+            //if (author is null)
+            //{
+            //    throw new Exception
+            //}
+
+            Book book = new(request.Name, author, request.Category, request.About, request.Language, request.PublicationDate, request.CoverPicture);
 
             _context.Books.Add(book);
-
             await _context.SaveChangesAsync(cancellationToken);
 
             return book.Id;

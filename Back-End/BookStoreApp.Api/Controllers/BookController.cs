@@ -34,7 +34,7 @@ namespace BookStoreApp.Api.Controllers
             return CreatedAtAction(nameof(Get), new { id = bookId }, null);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult> Put([FromBody] UpdateBookCommand command)
         {
             await Mediator.Send(command);

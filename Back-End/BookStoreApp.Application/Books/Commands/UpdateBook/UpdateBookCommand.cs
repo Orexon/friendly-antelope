@@ -4,9 +4,7 @@ using BookStoreApp.Core.Entity;
 using BookStoreApp.Core.ValueObjects;
 using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +14,7 @@ namespace BookStoreApp.Application.Books.Commands.UpdateBook
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Author Author { get; set; }
+        public Guid AuthorId { get; set; }
         public Category Category { get; set; }
         public string Language { get; set; }
         public string About { get; set; }
@@ -36,13 +34,14 @@ namespace BookStoreApp.Application.Books.Commands.UpdateBook
         public async Task<Unit> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
         {
             Book book = await _context.Books.FindAsync(request.Id);
+            Author author = _context.Authors.Where(x => x.Id == request.AuthorId).FirstOrDefault();
 
             if (book == null)
             {
-                throw new NotFoundException(nameof(Author), request.Id);
+                throw new NotFoundException(nameof(Book), request.Id);
             }
 
-            book.UpdateBook(request.Name, request.Author, request.Category, request.Language, request.About, request.PublicationDate);
+            book.UpdateBook(request.Name, author, request.Category, request.Language, request.About, request.PublicationDate);
             book.UpdateBookPicture(request.CoverPicture);
 
             _context.Books.Update(book);

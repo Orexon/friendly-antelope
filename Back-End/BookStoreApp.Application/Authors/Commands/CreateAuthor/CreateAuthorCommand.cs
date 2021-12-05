@@ -12,7 +12,6 @@ namespace BookStoreApp.Application.Authors.Commands
 {
     public class CreateAuthorCommand : IRequest<Guid>
     {
-        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string AboutAuthor { get; set; }
@@ -30,7 +29,7 @@ namespace BookStoreApp.Application.Authors.Commands
 
         public async Task<Guid> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
         {
-            Author author = new(request.Id,request.FirstName, request.LastName,request.AboutAuthor,request.Picture);
+            Author author = new(request.FirstName, request.LastName,request.AboutAuthor,request.Picture);
 
             _context.Authors.Add(author);
 

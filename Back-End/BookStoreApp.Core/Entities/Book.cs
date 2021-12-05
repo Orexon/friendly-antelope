@@ -17,21 +17,19 @@ namespace BookStoreApp.Core.Entity
         private readonly List<Comment> _bookComments = new();
         public IReadOnlyCollection<Comment> BookComments => _bookComments.AsReadOnly();
 
-        private Book(Guid id,string name, Author author, Category category, string language, string about,PublicationDate publicationDate, string coverPicture, List<Comment> bookComments)
-            : this(id,name,author,category,language, about,publicationDate, coverPicture)
+        private Book(string name, Author author, Category category, string language, string about,PublicationDate publicationDate, string coverPicture, List<Comment> bookComments)
+            : this(name,author,category,language, about,publicationDate, coverPicture)
         {
             _bookComments = bookComments;
         }
 
-        public Book() //For Ef
+        public Book() //for EF
         {
 
         }
-
-        public Book(Guid id, string name, Author author, Category category, string language,string about, PublicationDate publicationDate, string coverPicture)
+        public Book(string name, Author author, Category category, string language,string about, PublicationDate publicationDate, string coverPicture)
         {
             //Guards & Exceptions
-            Id = id;
             Name = name;
             Author = author;
             Category = category;

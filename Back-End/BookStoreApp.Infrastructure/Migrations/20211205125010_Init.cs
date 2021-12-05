@@ -29,7 +29,7 @@ namespace BookStoreApp.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Category_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Language = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     About = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PublicationDate_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
