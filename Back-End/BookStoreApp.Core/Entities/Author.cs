@@ -36,7 +36,7 @@ namespace BookStoreApp.Core.Entity
         {
         }
 
-        internal Author(Guid id, string firstName, string lastName, string aboutAuthor, string picture)
+        public Author(Guid id, string firstName, string lastName, string aboutAuthor, string picture)
         {
             //Guards or exceptions.
             Id = id;
@@ -44,19 +44,6 @@ namespace BookStoreApp.Core.Entity
             LastName = lastName;
             AboutAuthor = aboutAuthor;
             Picture = picture;
-        }
-
-        public void AddBook(Book book)
-        {
-            _books.Add(book);
-        }
-
-        public void AddBooks(IEnumerable<Book> books)
-        {
-            foreach (var book in books)
-            {
-                AddBook(book);
-            }
         }
 
         public void AddAuthorComment(Comment comment)
@@ -72,7 +59,19 @@ namespace BookStoreApp.Core.Entity
             }
         }
 
-        //Update Author picture. 
-        //Update author.
+        public void UpdateAuthor(string newName, string newLastName, string newAbout)
+        {
+            //Guards or Exceptions
+            FirstName = newName;
+            LastName = newLastName;
+            AboutAuthor = newAbout;
+        }
+
+        public void UpdateAuthorPicture(string newPicture)
+        {
+            //Guards or Exceptions
+            Picture = newPicture;
+        }
+
     }
 }
