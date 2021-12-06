@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Authors\Commands\CreateAuthorComment\" />
     <Folder Include="Books\Commands\CreateBookComment\" />
   </ItemGroup>
 

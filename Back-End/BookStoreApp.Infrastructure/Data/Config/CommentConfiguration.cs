@@ -13,9 +13,14 @@ namespace BookStoreApp.Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.ToTable("Comments");
+            builder.Property<Guid>("Id");
 
             builder.Property(x=>x.CommentContent).HasMaxLength(500);
+
+            builder.Property(x => x.PostDate)
+                .HasColumnType("date")
+                .HasDefaultValueSql("GetDate()");
         }
     }
 }

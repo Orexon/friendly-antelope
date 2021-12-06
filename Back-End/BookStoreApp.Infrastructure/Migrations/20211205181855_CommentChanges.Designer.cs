@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreApp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211205125010_Init")]
-    partial class Init
+    [Migration("20211205181855_CommentChanges")]
+    partial class CommentChanges
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,7 +98,9 @@ namespace BookStoreApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("PostDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("date")
+                        .HasDefaultValueSql("GetDate()");
 
                     b.HasKey("Id");
 
@@ -139,24 +141,24 @@ namespace BookStoreApp.Infrastructure.Migrations
             modelBuilder.Entity("BookStoreApp.Core.Entity.Comment", b =>
                 {
                     b.HasOne("BookStoreApp.Core.Entity.Author", null)
-                        .WithMany("Comments")
+                        .WithMany("_comments")
                         .HasForeignKey("AuthorId");
 
                     b.HasOne("BookStoreApp.Core.Entity.Book", null)
-                        .WithMany("BookComments")
+                        .WithMany("_bookComments")
                         .HasForeignKey("BookId");
                 });
 
             modelBuilder.Entity("BookStoreApp.Core.Entity.Author", b =>
                 {
-                    b.Navigation("Books");
+                    b.Navigation("_comments");
 
-                    b.Navigation("Comments");
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("BookStoreApp.Core.Entity.Book", b =>
                 {
-                    b.Navigation("BookComments");
+                    b.Navigation("_bookComments");
                 });
 #pragma warning restore 612, 618
         }

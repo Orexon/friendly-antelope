@@ -13,12 +13,17 @@ namespace BookStoreApp.Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Author> builder)
         {
+            var navigation = builder.Metadata.FindNavigation(nameof(Author.Comments));
+            navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+
             builder.HasKey(x => x.Id);
 
             builder.HasMany(c => c.Books)
                    .WithOne(n => n.Author);
 
-            builder.HasMany(x => x.Comments);
+            builder.HasMany(typeof(Comment), "_comments");
+
+
 
             builder.Property(x=>x.FirstName)
                    .HasMaxLength(100)

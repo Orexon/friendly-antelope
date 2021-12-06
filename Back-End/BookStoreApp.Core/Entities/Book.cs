@@ -15,6 +15,7 @@ namespace BookStoreApp.Core.Entity
         public string CoverPicture { get; private set; } //Change to appropriate Data type byte[]/string/File etc..
 
         private readonly List<Comment> _bookComments = new();
+
         public IReadOnlyCollection<Comment> BookComments => _bookComments.AsReadOnly();
 
         private Book(string name, Author author, Category category, string language, string about,PublicationDate publicationDate, string coverPicture, List<Comment> bookComments)
@@ -23,10 +24,12 @@ namespace BookStoreApp.Core.Entity
             _bookComments = bookComments;
         }
 
+        
         public Book() //for EF
         {
 
         }
+
         public Book(string name, Author author, Category category, string language,string about, PublicationDate publicationDate, string coverPicture)
         {
             //Guards & Exceptions

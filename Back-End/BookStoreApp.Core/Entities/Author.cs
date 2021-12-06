@@ -22,8 +22,8 @@ namespace BookStoreApp.Core.Entity
         //https://msdn.microsoft.com/en-us/library/e78dcd75(v=vs.110).aspx 
 
         private readonly List<Comment> _comments = new();
-        public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
 
+        public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
 
         private Author(string firstName, string lastName, string aboutAuthor, string picture, List<Book> books, List<Comment> comments) 
             : this(firstName, lastName,aboutAuthor,picture)

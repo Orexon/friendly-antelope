@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookStoreApp.Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class CommentChanges : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,7 +51,7 @@ namespace BookStoreApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PostDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PostDate = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "GetDate()"),
                     CommentContent = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     AuthorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     BookId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)

@@ -14,7 +14,6 @@ namespace BookStoreApp.Api.Controllers
 {
     public class BookController : BaseController
     {
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookListDto>>> Get()
         {
