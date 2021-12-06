@@ -2,10 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookStoreApp.Infrastructure.Data.Config
 {
@@ -16,7 +12,7 @@ namespace BookStoreApp.Infrastructure.Data.Config
             builder.ToTable("Comments");
             builder.Property<Guid>("Id");
 
-            builder.Property(x=>x.CommentContent).HasMaxLength(500);
+            builder.Property(x => x.CommentContent).HasMaxLength(500);
 
             builder.Property(x => x.PostDate)
                 .HasColumnType("date")

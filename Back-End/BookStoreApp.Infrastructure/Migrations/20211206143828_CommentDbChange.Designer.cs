@@ -4,14 +4,16 @@ using BookStoreApp.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookStoreApp.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211206143828_CommentDbChange")]
+    partial class CommentDbChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,7 +90,13 @@ namespace BookStoreApp.Infrastructure.Migrations
                     b.Property<Guid?>("AuthorId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AuthorId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BookId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CommentContent")
@@ -104,7 +112,11 @@ namespace BookStoreApp.Infrastructure.Migrations
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("AuthorId1");
+
                     b.HasIndex("BookId");
+
+                    b.HasIndex("BookId1");
 
                     b.ToTable("Comments");
                 });
@@ -142,13 +154,23 @@ namespace BookStoreApp.Infrastructure.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId");
 
+                    b.HasOne("BookStoreApp.Core.Entity.Author", null)
+                        .WithMany("_comments")
+                        .HasForeignKey("AuthorId1");
+
                     b.HasOne("BookStoreApp.Core.Entity.Book", null)
                         .WithMany("BookComments")
                         .HasForeignKey("BookId");
+
+                    b.HasOne("BookStoreApp.Core.Entity.Book", null)
+                        .WithMany("_bookComments")
+                        .HasForeignKey("BookId1");
                 });
 
             modelBuilder.Entity("BookStoreApp.Core.Entity.Author", b =>
                 {
+                    b.Navigation("_comments");
+
                     b.Navigation("Books");
 
                     b.Navigation("Comments");
@@ -156,6 +178,8 @@ namespace BookStoreApp.Infrastructure.Migrations
 
             modelBuilder.Entity("BookStoreApp.Core.Entity.Book", b =>
                 {
+                    b.Navigation("_bookComments");
+
                     b.Navigation("BookComments");
                 });
 #pragma warning restore 612, 618
