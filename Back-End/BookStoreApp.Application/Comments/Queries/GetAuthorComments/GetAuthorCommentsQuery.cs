@@ -16,8 +16,6 @@ namespace BookStoreApp.Application.Comments.Queries.GetAuthorComments
     public class GetAuthorCommentsQuery : IRequest<List<CommentDto>>
     {
         public Guid AuthorId { get; set; }
-        public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 5;
     }
 
     public class GetAuthorCommentsQueryHandler : IRequestHandler<GetAuthorCommentsQuery, List<CommentDto>>
@@ -39,12 +37,14 @@ namespace BookStoreApp.Application.Comments.Queries.GetAuthorComments
                 throw new NotFoundException(nameof(Book), request.AuthorId);
             }
 
-            return author.Comments
-                            .OrderBy(x => x.PostDate)
-                            .Skip((request.PageNumber - 1) * request.PageSize)
-                            .Take(request.PageSize)
-                            .Select(c => new CommentDto { CommentContent = c.CommentContent, PostDate = c.PostDate })
-                            .ToList();
+            return author.Comments.OrderBy(x => x.PostDate).Select(c => new CommentDto { CommentContent = c.CommentContent, PostDate = c.PostDate }).ToList();
+
+            //return author.Comments
+            //                .OrderBy(x => x.PostDate)
+            //                .Skip((request.PageNumber - 1) * request.PageSize)
+            //                .Take(request.PageSize)
+            //                .Select(c => new CommentDto { CommentContent = c.CommentContent, PostDate = c.PostDate })
+            //                .ToList();
         }
     }
 }

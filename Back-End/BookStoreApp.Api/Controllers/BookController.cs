@@ -15,9 +15,9 @@ namespace BookStoreApp.Api.Controllers
     public class BookController : BaseController
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookListDto>>> Get()
+        public async Task<ActionResult<IEnumerable<BookListDto>>> Get(int pageSize, int pageNumber)
         {
-            return await Mediator.Send(new GetBooksQuery());
+            return await Mediator.Send(new GetBooksQuery { PageNumber = pageNumber, PageSize = pageSize });
         }
 
         [HttpGet("{Id}")]

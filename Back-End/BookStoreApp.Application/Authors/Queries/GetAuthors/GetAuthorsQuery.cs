@@ -13,8 +13,9 @@ namespace BookStoreApp.Application.Authors.Queries.GetAuthors
 {
     public class GetAuthorsQuery : IRequest<List<AuthorListDto>>
     {
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 8;
     }
-
 
     public class GetAuthorsQueryHandler : IRequestHandler<GetAuthorsQuery, List<AuthorListDto>>
     {
@@ -30,10 +31,11 @@ namespace BookStoreApp.Application.Authors.Queries.GetAuthors
 
         public async Task<List<AuthorListDto>> Handle(GetAuthorsQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Authors.AsNoTracking().ProjectTo<AuthorListDto>(_mapper.ConfigurationProvider).OrderBy(b => b.LastName).ToListAsync(cancellationToken);
-
-            //return await _context.Authors.Select(a => new AuthorListDto { FirstName = a.FirstName, LastName = a.LastName, AboutAuthor = a.AboutAuthor, Picture = a.Picture }).ToListAsync(cancellationToken);
-            //_context.Skip((pageNumber - 1) * pageSize).Take(pageSize).AsNoTracking().ToListAsync();  
+            return await _context.Authors.OrderByDescending(a=>a.LastName)
+                                         .Skip((request.PageNumber - 1) * request.PageSize)
+                                         .Take(request.PageSize)
+                                         .ProjectTo<AuthorListDto>(_mapper.ConfigurationProvider)
+                                         .ToListAsync(cancellationToken);
         }
     }
 }
