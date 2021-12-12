@@ -13,8 +13,6 @@ namespace BookStoreApp.Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Author> builder)
         {
-            //var navigation = builder.Metadata.FindNavigation(nameof(Author.Comments));
-            //navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
 
             builder.HasKey(x => x.Id);
 

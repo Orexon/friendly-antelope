@@ -1,4 +1,5 @@
 ﻿using BookStoreApp.Core.ValueObjects;
+using BookStoreApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,11 @@ namespace BookStoreApp.Core.Entity
         // It's much cheaper than .ToList() because it will not have to copy all items in a new collection. (Just one heap alloc for the wrapper instance)
         //https://msdn.microsoft.com/en-us/library/e78dcd75(v=vs.110).aspx 
 
-        private readonly List<Comment> _comments = new();
+        private readonly List<EntityComment> _comments = new();
 
-        public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
+        public IReadOnlyCollection<EntityComment> Comments => _comments.AsReadOnly();
 
-        private Author(string firstName, string lastName, string aboutAuthor, string picture, List<Book> books, List<Comment> comments) 
+        private Author(string firstName, string lastName, string aboutAuthor, string picture, List<Book> books, List<EntityComment> comments) 
             : this(firstName, lastName,aboutAuthor,picture)
         {
             _books = books;
@@ -58,12 +59,12 @@ namespace BookStoreApp.Core.Entity
             }
         }
 
-        public void AddAuthorComment(Comment comment)
+        public void AddAuthorComment(EntityComment comment)
         {
             _comments.Add(comment);
         }
 
-        public void AddAuthorComments(IEnumerable<Comment> comments)
+        public void AddAuthorComments(IEnumerable<EntityComment> comments)
         {
             foreach (var comment in comments)
             {

@@ -11,6 +11,7 @@ namespace BookStoreApp.Application.Authors.AuthorDTOs
 {
     public class AuthorBookDto : IMapFrom<Book>
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public Guid AuthorId { get; set; }
         public Category Category { get; set; }

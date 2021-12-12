@@ -1,1 +1,30 @@
-<p>authors works!</p>
+<div class="container text-center">
+  <h1 class="Title">Authors Catalogue</h1>
+</div>
+
+<div class="container authors">
+  <div class="row">
+    <div
+      class="col-lg-3 col-sm-6 d-flex justify-content-center mb-2"
+      *ngFor="let author of authors"
+    >
+      <div class="card" routerLink="/Author/{{ author.id }}">
+        <div class="card-img">
+          <img
+            [src]="author.picture"
+            class="img-thumbnail img-fluid authorimg"
+            alt="..."
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ author.firstname }} {{ author.lastname }}
+          </h5>
+          <p class="card-text">
+            {{ author.aboutAuthor }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

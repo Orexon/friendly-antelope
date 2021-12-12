@@ -3,6 +3,8 @@ using BookStoreApp.Core.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
+using System.Globalization;
 
 namespace BookStoreApp.Infrastructure.Data.Config
 {
@@ -10,15 +12,11 @@ namespace BookStoreApp.Infrastructure.Data.Config
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
-            //var navigation = builder.Metadata.FindNavigation(nameof(Book.BookComments));
-            //navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
-
             builder.HasKey(x => x.Id);
 
             builder.HasOne(x => x.Author).WithMany(x => x.Books);
 
-
-            builder.HasMany(x=>x.BookComments);
+            builder.HasMany(x => x.Comments);
 
             builder.Property(x => x.Name).HasMaxLength(100);
 
@@ -28,7 +26,11 @@ namespace BookStoreApp.Infrastructure.Data.Config
                .HasConversion(categoryConverter)
                .HasColumnName("Category");
 
-            builder.OwnsOne(x => x.PublicationDate);
+            var datetimeConverter = new ValueConverter<PublicationDate, string>(p => p.ToString(), p => PublicationDate.Create(DateTime.ParseExact(p, "dd/MM/yyyy", new CultureInfo("en-US"), DateTimeStyles.None)));
+
+            builder.Property(e => e.PublicationDate)
+                     .HasConversion(datetimeConverter)
+                     .HasColumnName("Date");
         }
     }
 }

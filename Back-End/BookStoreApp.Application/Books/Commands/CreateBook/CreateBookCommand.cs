@@ -3,9 +3,7 @@ using BookStoreApp.Core.Entity;
 using BookStoreApp.Core.ValueObjects;
 using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,7 +31,7 @@ namespace BookStoreApp.Application.Books.Commands
 
         public async Task<Guid> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {
-            Author author = _context.Authors.Where(x=>x.Id == request.AuthorId).FirstOrDefault();
+            Author author = _context.Authors.Where(x => x.Id == request.AuthorId).FirstOrDefault();
             //Throw exception if not found.
             //if (author is null)
             //{

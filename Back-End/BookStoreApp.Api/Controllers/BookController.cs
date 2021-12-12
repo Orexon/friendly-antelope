@@ -4,7 +4,6 @@ using BookStoreApp.Application.Books.Commands;
 using BookStoreApp.Application.Books.Commands.UpdateBook;
 using BookStoreApp.Application.Books.Queries;
 using BookStoreApp.Application.Books.Queries.GetBook;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

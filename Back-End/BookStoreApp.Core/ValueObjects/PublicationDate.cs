@@ -20,10 +20,14 @@ namespace BookStoreApp.Core.ValueObjects
 
             Date = date;
         }
+        public static PublicationDate Create(DateTime value)
+        {
+            return new PublicationDate(value);
+        }
 
         public override string ToString()
         {
-            return Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+            return $"{Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}";
         }
     }
 }

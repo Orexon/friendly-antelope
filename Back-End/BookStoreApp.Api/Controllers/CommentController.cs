@@ -1,10 +1,8 @@
 ﻿using BookStoreApp.Application.Comments.Commands;
-using BookStoreApp.Application.Comments.Commands.CreateBookComment;
 using BookStoreApp.Application.Comments.CommentDTOs;
-using BookStoreApp.Application.Comments.Queries.GetAuthorComments;
-using BookStoreApp.Application.Comments.Queries.GetBookComments;
-using Microsoft.AspNetCore.Http;
+using BookStoreApp.Application.Comments.Queries;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,27 +10,14 @@ namespace BookStoreApp.Api.Controllers
 {
     public class CommentController : BaseController
     {
-        [HttpGet("{Id}")]
-        public async Task<ActionResult<IEnumerable<CommentDto>>> Get([FromRoute] GetAuthorCommentsQuery query)
+        [HttpGet("{EntityID}")]
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetAuthorComments(Guid entityId, int pageNumber, int pageSize)
         {
-            return await Mediator.Send(query);
-        }
-
-        [HttpGet("{Id}")]
-        public async Task<ActionResult<IEnumerable<CommentDto>>> Get([FromRoute] GetBookCommentsQuery query)
-        {
-            return await Mediator.Send(query);
+            return await Mediator.Send(new GetCommentsQuery {EntityId = entityId, PageNumber = pageNumber, PageSize = pageSize });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateAuthorCommentCommand command)
-        {
-            await Mediator.Send(command);
-            return NoContent();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateBookCommentCommand command)
+        public async Task<IActionResult> Post([FromBody] CreateCommentCommand command)
         {
             await Mediator.Send(command);
             return NoContent();

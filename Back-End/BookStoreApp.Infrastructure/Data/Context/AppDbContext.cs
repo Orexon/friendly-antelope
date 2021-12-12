@@ -1,5 +1,6 @@
 ﻿using BookStoreApp.Application.Common.Interfaces;
 using BookStoreApp.Core.Entity;
+using BookStoreApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -14,7 +15,7 @@ namespace BookStoreApp.Infrastructure.Data.Context
 
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        public DbSet<EntityComment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

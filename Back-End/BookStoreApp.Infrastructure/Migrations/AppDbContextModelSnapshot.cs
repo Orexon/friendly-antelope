@@ -72,6 +72,10 @@ namespace BookStoreApp.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("PublicationDate")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Date");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -79,7 +83,7 @@ namespace BookStoreApp.Infrastructure.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("BookStoreApp.Core.Entity.Comment", b =>
+            modelBuilder.Entity("BookStoreApp.Domain.Entities.EntityComment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +110,7 @@ namespace BookStoreApp.Infrastructure.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("EntityComment");
                 });
 
             modelBuilder.Entity("BookStoreApp.Core.Entity.Book", b =>
@@ -115,35 +119,17 @@ namespace BookStoreApp.Infrastructure.Migrations
                         .WithMany("Books")
                         .HasForeignKey("AuthorId");
 
-                    b.OwnsOne("BookStoreApp.Core.ValueObjects.PublicationDate", "PublicationDate", b1 =>
-                        {
-                            b1.Property<Guid>("BookId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<DateTime>("Date")
-                                .HasColumnType("datetime2");
-
-                            b1.HasKey("BookId");
-
-                            b1.ToTable("Books");
-
-                            b1.WithOwner()
-                                .HasForeignKey("BookId");
-                        });
-
                     b.Navigation("Author");
-
-                    b.Navigation("PublicationDate");
                 });
 
-            modelBuilder.Entity("BookStoreApp.Core.Entity.Comment", b =>
+            modelBuilder.Entity("BookStoreApp.Domain.Entities.EntityComment", b =>
                 {
                     b.HasOne("BookStoreApp.Core.Entity.Author", null)
                         .WithMany("Comments")
                         .HasForeignKey("AuthorId");
 
                     b.HasOne("BookStoreApp.Core.Entity.Book", null)
-                        .WithMany("BookComments")
+                        .WithMany("Comments")
                         .HasForeignKey("BookId");
                 });
 
@@ -156,7 +142,7 @@ namespace BookStoreApp.Infrastructure.Migrations
 
             modelBuilder.Entity("BookStoreApp.Core.Entity.Book", b =>
                 {
-                    b.Navigation("BookComments");
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
