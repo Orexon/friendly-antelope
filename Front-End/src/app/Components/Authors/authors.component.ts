@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorReduced } from 'src/app/Models/Author/AuthorReduced';
-import { SharedService } from 'src/app/Services/SharedService/shared.service';
 
 @Component({
   selector: 'app-authors',

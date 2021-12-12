@@ -14,21 +14,101 @@
   margin-top: 20px;
   text-align: center;
 }
-.courselImg {
-  width: 100px;
-  height: 180px;
+.swiperCont {
+  padding-top: 5vh;
+  padding-right: 40px;
+  padding-left: 40px;
 }
+
+.bookcard {
+  border: none;
+}
+
+.card {
+  align-items: center;
+}
+.carouselImg {
+  max-height: 352px;
+  width: 60%;
+  height: auto;
+}
+.carouselImg {
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 6px 10px rgba(22, 115, 168, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+  transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+    0.3s box-shadow,
+    0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carouselImg:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.card h3 {
+  font-weight: 600;
+}
+
 @media (min-width: 576px) {
   .authorimg {
     height: 450px;
+  }
+  .carouselImg {
+    max-height: 197px;
+    width: 60%;
+    height: auto;
   }
 }
 @media (min-width: 768px) {
   .authorimg {
     height: auto;
   }
+  .carouselImg {
+    max-height: 273px;
+    width: 60%;
+    height: auto;
+  }
   .name {
     margin-top: 0;
     text-align: unset;
+  }
+}
+
+@media (min-width: 992px) {
+  .carouselImg {
+    max-height: 249px;
+    width: 60%;
+    height: auto;
+  }
+}
+@media (min-width: 1200px) {
+  .carouselImg {
+    max-height: 260px;
+    width: 70%;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .carouselImg {
+    max-height: 307px;
+    width: 70%;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 1860px) {
+  .carouselImg {
+    max-height: 350px;
+    width: 80%;
+    height: auto;
+  }
+  .swiperCont {
+    padding-top: 5vh;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }

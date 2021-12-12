@@ -10,6 +10,25 @@
       <div class="name mb-3">First name Last Name</div>
       <div class="aboutAuthor">Wery nice</div>
     </div>
+    <div class="col-12 swiperCont">
+      <swiper
+        [loop]="true"
+        [slidesPerView]="4"
+        [spaceBetween]="10"
+        [navigation]="true"
+        [breakpoints]="breakpoints"
+      >
+        <ng-container *ngFor="let book of AuthorBooks">
+          <ng-template swiperSlide>
+            <div class="card bookcard">
+              <img [src]="book.coverPicture" class="carouselImg" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">a{{ book.name }}</h5>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </swiper>
+    </div>
   </div>
-  <div class="col-12"></div>
 </div>

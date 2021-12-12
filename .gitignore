@@ -8,6 +8,9 @@
 *.userosscache
 *.sln.docstates
 
+# Cache folder for the Angular CLI.
+.angular/cache
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

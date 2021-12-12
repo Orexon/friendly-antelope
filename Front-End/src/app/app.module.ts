@@ -8,6 +8,7 @@ import { HomeComponent } from './Components/Home/home.component';
 import { NotFoundComponent } from './Components/NotFound/not-found.component';
 import { AuthorComponent } from './Components/Author/author.component';
 import { BookComponent } from './Components/Book/book.component';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { BookComponent } from './Components/Book/book.component';
     AuthorComponent,
     NotFoundComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, SwiperModule],
   providers: [],
   bootstrap: [AppComponent],
 })
